@@ -88,6 +88,17 @@ onMounted(() => {
 watch(
   () => route.query,
   (newValue, oldValue) => {
+    if (route.query.selectedGenres) {
+      searchStore.setSelectedGenres(
+        route.query.selectedGenres
+          ?.toString()
+          .split(",")
+          .map((item) => parseInt(item))
+      );
+    }
+    if (route.query.query) {
+      searchStore.setQuery(route.query.query?.toString());
+    }
     page.value = parseInt(newValue.page?.toString() || "1");
   }
 );
